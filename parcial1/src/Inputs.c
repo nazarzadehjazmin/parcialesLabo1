@@ -1170,23 +1170,22 @@ int utn_isIntSinSigno(char* cadena)
 }
 
 
+
 int utn_isAlfanumerico(char *cadena)
 {
-    int retorno = 1;
+	int output = 1;
 
-    if(cadena !=NULL)
-    {
-        for(int i = 0; cadena[i] !='\0'; i++)
-        {
-            if(((cadena[i] < '0' || cadena[i] > 'z') || (cadena[i] > '9' && cadena[i] < 'A') ||
-                (cadena[i] > 'Z' && cadena[i] < 'a')) && (cadena[i] != '_' && cadena[i] != '.'))
-            {
-                retorno = -1;
-                break;
-            }
-        }
-    }
-    return retorno;
+	if(cadena !=NULL){
+		for(int i = 0; cadena[i] !='\0'; i++)
+		{
+			if( ((cadena[i] < '0' || cadena[i] > 'z') || (cadena[i] > '9' && cadena[i] < 'A') || (cadena[i] > 'Z' && cadena[i] < 'a')) && (cadena[i] != '_' && cadena[i] != '.') && cadena[i] == ' ')
+			{
+				output = -1;
+				break;
+			}
+		}
+	}
+	return output;
 }
 
 
@@ -1224,7 +1223,7 @@ int utn_getAlfanumerico(char *pMensaje, char *pMensajeError, char *pCadena, int 
                 {
                     if(esLetra(pCadena) == 0)
                     {
-                    	pCadena[i] = toupper(pCadena[i]);
+                    	pCadena[i] = tolower(pCadena[i]);
                     }
                 }
                 retorno = 0;

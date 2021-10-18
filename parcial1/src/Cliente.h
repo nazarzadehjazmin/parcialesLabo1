@@ -78,9 +78,9 @@ free space] - (0) if Ok
 int addCliente(Cliente* list, int len, int id, char nombreEmpresa[], char cuit[], char direccion[], char localidad[]);
 
 
-/** \brief find an Employee by Id en returns the index position in array.
+/** \brief find an cliente by Id en returns the index position in array.
  *
- * \param list Employee*
+ * \param list Cliente*
  * \param len int
  * \param id int
  * \return Return employee index position or (-1) if [Invalid length or NULL
@@ -92,8 +92,7 @@ int findClienteById(Cliente* list, int len, int id);
 
 /** \brief prints the content of one Cliente
  *
- * \param list Cliente
- * \param length int
+ * \param list Cliente*
  * \return int 0 success, -1 error
  *
  */
@@ -110,6 +109,16 @@ int printCliente(Cliente* list);
 int printClientes(Cliente* list, int length);
 
 
+/** \brief for preloaded data
+ *
+ * \param list Cliente*
+ * \param len int
+ * \return int 0 success, -1 error
+ *
+ */
+int hardcodearData(Cliente* list, int len);
+
+
 /** \brief creates a menu for "alta"
  *
  * \param list Cliente*
@@ -118,7 +127,6 @@ int printClientes(Cliente* list, int length);
  *
  */
 int alta_menu(Cliente* list, int len);
-
 
 
 /** \brief identifies if there are any clients

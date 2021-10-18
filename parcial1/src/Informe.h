@@ -9,4 +9,6 @@
 #include "Pedido.h"
 #include "Cliente.h"
 
+//int crearPedidoRecoleccion(Pedido* listPedido, int pedidoLen, Cliente* clienteList, int clienteLen);
+
 #endif

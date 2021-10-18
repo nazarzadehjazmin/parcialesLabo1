@@ -1,19 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "Cliente.h"
-#define EMPTY_LIST "\nNo hay clientes en la lista. \nIngrese a la opcion 1 para dar de alta, luego, reingrese la opcion seleccionada\n"
+#include "Informe.h"
+#define EMPTY_LIST_CLI "\nNo hay clientes en la lista. \nIngrese a la opcion 1 para dar de alta, luego, reingrese la opcion seleccionada\n"
+#define EMPTY_LIST "\nError, listas vacias"
 
 int main(void) {
 	setbuf(stdout, NULL);
 	Cliente clienteList[QTY_CLIENTE];
+	Pedido pedidoList[QTY_PEDIDO];
 	int menuOption;
 	int id = 0;
 
-	if(initCliente(clienteList, QTY_CLIENTE) == 0)
+	if(initCliente(clienteList, QTY_CLIENTE) == 0 &&
+	   initPedido(pedidoList, QTY_PEDIDO) == 0)
 	{
 		do
 		{
-			if(utn_getNumero(&menuOption, "\n\nMenu principal:\n1-Alta cliente \n2-Modificar cliente \n3-Baja cliente \n4-Informar \n5-Salir\n", ERROR_MSG, 1, 5, QTY_REINTENTO) == 0)
+			if(utn_getNumero(&menuOption, "\n\nMenu principal:\n1-Alta cliente \n2-Modificar cliente \n3-Baja cliente \n4-Crear pedido de recoleccion \n5-Procesar residuos \n6-Imprimir clientes \n7-Imprimir pedidos pendientes \n8-Imprimir pedidos procesados \n9- \n10- \n11-Salir \n", ERROR_MSG, 1, 5, QTY_REINTENTO) == 0)
 			{
 				switch(menuOption)
 				{
@@ -28,7 +31,7 @@ int main(void) {
 						}
 						else
 						{
-							printf(EMPTY_LIST);
+							printf(EMPTY_LIST_CLI);
 						}
 
 						break;
@@ -39,25 +42,55 @@ int main(void) {
 						}
 						else
 						{
-							printf(EMPTY_LIST);
+							printf(EMPTY_LIST_CLI);
 						}
 						break;
 					case 4:
 
 						 if(isClienteListEmpty(clienteList, QTY_CLIENTE) == 0)
 						{
-
+							 alta_menu_Pedido(pedidoList, QTY_PEDIDO, clienteList, QTY_CLIENTE);
 						}
 						else
 						{
 							printf(EMPTY_LIST);
 						}
 						break;
+					case 5:
+						if(isClienteListEmpty(clienteList, QTY_CLIENTE) == 0 &&
+						   isPedidoListEmpty(pedidoList, QTY_PEDIDO) == 0)
+						{
+							procesarResiduos(pedidoList, QTY_PEDIDO);
+						}
+						else
+						{
+							printf(EMPTY_LIST);
+						}
+						break;
+					case 6:
+
+						break;
+					case 7:
+
+						break;
+					case 8:
+
+						break;
+					case 9:
+
+						break;
+					case 10:
+
+						break;
 				}
 			}
-		}while(menuOption != 5);
+		}while(menuOption != 11);
 	}
 
 
 	return EXIT_SUCCESS;
 }
+
+
+
+

@@ -52,6 +52,7 @@ int uploadCliente(Cliente *list, int len, int *id)
 	{
 		if(utn_getNombre(buffer.nombreEmpresa, "\nNombre de la empresa: ", ERROR_MSG, NOMBREEMPRESA_LEN, QTY_REINTENTO) == 0 &&
 		   utn_getCuit(buffer.cuit, "\nCUIT: ", ERROR_MSG, CUIT_LEN, QTY_REINTENTO) == 0 &&
+		   //utn_getAlfanumerico("\nDireccion: ", ERROR_MSG, buffer.direccion, DIRECCION_LEN, QTY_REINTENTO) == 0 &&
 		   utn_getDireccion(buffer.direccion, "\nDireccion - Calle: ", "\nAltura", ERROR_MSG, ERROR_ALTURA) == 0 &&
 		   utn_getNombre(buffer.localidad, "\nLocalidad: ", ERROR_MSG, LOCALIDAD_LEN, QTY_REINTENTO) == 0
 		   )
@@ -107,13 +108,13 @@ int findClienteById(Cliente* list, int len, int id)
 	return output;
 }
 
-int printCliente(Cliente* list)
+int printCliente(Cliente* cliente)
 {
 	int output = -1;
 
-	if(list != NULL && list->isEmpty == FALSE)
+	if(cliente != NULL && cliente->isEmpty == FALSE)
 	{
-		printf("\n%4d %13s %12s %14s %14s",list->id, list->nombreEmpresa, list->cuit, list->direccion, list->localidad);
+		printf("\n%4d %20s %20s %20s %20s",cliente->id, cliente->nombreEmpresa, cliente->cuit, cliente->direccion, cliente->localidad);
 		output = 0;
 	}
 
@@ -126,7 +127,7 @@ int printClientes(Cliente* list, int length)
 
 	if(list != NULL && length > 0)
 	{
-		printf("\n%4s %6s %10s %15s %14s", "ID", "NOMBRE EMPRESA", "CUIT", "DIRECCION", "LOCALIDAD");
+		printf("\n%4s %20s %15s %25s %20s", "ID", "NOMBRE EMPRESA", "CUIT", "DIRECCION", "LOCALIDAD");
 		for(int i = 0; i < length; i++)
 		{
 			printCliente(&list[i]);
@@ -201,6 +202,7 @@ int alta_menu(Cliente* list, int len)
 				}
 			}
 		}while(option!= 3);
+		output = 0;
 	}
 
 	return output;
