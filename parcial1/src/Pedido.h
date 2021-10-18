@@ -85,7 +85,7 @@ int addPedidoRecoleccion(Pedido* list, int len, int id, float kgHDPE, float kgLD
 
 
 
-int procesarResiduos(Pedido* list, int len);
+int procesarResiduos(Pedido* pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen);
 
 /** \brief find an order by Id en returns the index position in array.
  *
@@ -105,7 +105,7 @@ int findPedidoById(Pedido* list, int len, int id);
  * \return int 0 success, -1 error
  *
  */
-int printPedidoRecoleccion(Pedido* list);
+int printPedidoRecoleccion(Pedido* pedido);
 
 
 /** \brief prints the content of cliente's list
@@ -115,7 +115,7 @@ int printPedidoRecoleccion(Pedido* list);
  * \return int 0 success, -1 error
  *
  */
-int printPedidosRecoleccion(Pedido* list, int length);
+int printPedidosRecoleccion(Pedido* pedidoList, int pedidoLen);
 
 
 /** \brief for preloaded data

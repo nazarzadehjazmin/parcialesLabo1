@@ -11,4 +11,8 @@
 
 //int crearPedidoRecoleccion(Pedido* listPedido, int pedidoLen, Cliente* clienteList, int clienteLen);
 
+int contadorPedidosPendientes (Pedido* pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen);
+
+int informe_imprimirClientePedidoPendiente(Pedido* pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen);
+
 #endif

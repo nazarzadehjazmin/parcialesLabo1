@@ -301,7 +301,7 @@ Luego deberán ingresarse la cantidad de kilos de plástico de cada uno de los 3 t
 Por último, se marcará al pedido como “Completado”.
 */
 
-int procesarResiduos(Pedido* list, int len)
+int procesarResiduos(Pedido* pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen)
 {
 	int output = -1;
 	int idIngresado;
@@ -309,30 +309,36 @@ int procesarResiduos(Pedido* list, int len)
 	Pedido buffer;
 	char response;
 	float sumaKgTotal;
+	int auxContador = 0;
 
-	if(list != NULL && len > 0)
+	if(pedidoList != NULL && pedidoLen > 0)
 	{
-		printPedidosRecoleccion(list, len);
+		printPedidosRecoleccion(pedidoList, pedidoLen);
 
 		if(utn_getNumero(&idIngresado, "\nSeleccione el id del pedido existente: ", ERROR_MSG_P, 1, QTY_PEDIDO, QTY_REINTENTOS_P) == 0)
 		{
-			index = findPedidoById(list, len, idIngresado);
+			index = findPedidoById(pedidoList, pedidoLen, idIngresado);
 
-			if(index != -1 && list[index].isEmpty == FALSE_P)
+			if(index != -1 && pedidoList[index].isEmpty == FALSE_P)
 			{
 				if(utn_getFloat(&buffer.kgHDPE, "\nCantidad de HDPE(Kg): ", ERROR_MSG_P, MIN_KG, MAX_KG, QTY_REINTENTOS_P) == 0 &&
 					utn_getFloat(&buffer.kgLDPE, "\nCantidad de LDPE(Kg): ", ERROR_MSG_P, MIN_KG, MAX_KG, QTY_REINTENTOS_P) == 0 &&
 				   utn_getFloat(&buffer.kgPP, "\nCantidad de PP(Kg): ", ERROR_MSG_P, MIN_KG, MAX_KG, QTY_REINTENTOS_P) == 0)
 				{
 					sumaKgTotal = buffer.kgHDPE + buffer.kgLDPE + buffer.kgPP;
+
 					if(utn_getContinuar(&response, CONTINUAR, ERROR_MSG, QTY_REINTENTO) == 0 &&
 					  (response == 'Y' || response == 'y') &&
-					  sumaKgTotal == list[index].totalKg)
+					  sumaKgTotal == pedidoList[index].totalKg)
 					{
-						list[index].kgHDPE = buffer.kgHDPE;
-						list[index].kgLDPE = buffer.kgLDPE;
-						list[index].kgPP = buffer.kgPP;
-						strncpy(list[index].estadoPedido, COMPLETADO, ESTADO_LEN);
+						pedidoList[index].kgHDPE = buffer.kgHDPE;
+						pedidoList[index].kgLDPE = buffer.kgLDPE;
+						pedidoList[index].kgPP = buffer.kgPP;
+						auxContador = clienteList[index].contadorPedido;
+						auxContador++;
+						clienteList[index].contadorPedido = auxContador;
+
+						strncpy(pedidoList[index].estadoPedido, COMPLETADO, ESTADO_LEN);
 						printf("\nSus residuos han sido procesados");
 					}
 					else
@@ -385,16 +391,16 @@ int printPedidoRecoleccion(Pedido* pedido)
 	return output;
 }
 
-int printPedidosRecoleccion(Pedido* list, int length)
+int printPedidosRecoleccion(Pedido* pedidoList, int pedidoLen)
 {
 	int output = -1;
 
-	if(list != NULL && length > 0)
+	if(pedidoList != NULL && pedidoLen > 0)
 	{
-		printf("\n%s %10s %10s %10s %10s %10s %10s", "ID_P", "KgHDPE", "KgLDPE", "KgPP", "TOTALKg", "ESTADO", "ID_C");
-		for(int i = 0; i < length; i++)
+		printf("\n%s %10s %10s %10s %10s %10s %10s", "ID_P", "KgHDPE", "KgLDPE", "KgPP", "TOTALKg", "ESTADO", "ID_CLI");
+		for(int i = 0; i < pedidoLen; i++)
 		{
-			printPedidoRecoleccion(&list[i]);
+			printPedidoRecoleccion(&pedidoList[i]);
 		}
 		output = 0;
 	}
@@ -414,7 +420,7 @@ int hardcodearData_PedidoRecoleccion(Pedido* list, int len)
 		addPedidoRecoleccion(list, len, 4, 0, 0, 0, 400, PENDIENTE, 4);
 		addPedidoRecoleccion(list, len, 5, 0, 0, 0, 500, PENDIENTE, 5);
 		addPedidoRecoleccion(list, len, 6, 0, 0, 0, 350, PENDIENTE, 6);
-		printPedidosRecoleccion(list, len);
+		//printPedidosRecoleccion(pedidoList, pedidoLen, clienteList);
 		output = 0;
 	}
 
