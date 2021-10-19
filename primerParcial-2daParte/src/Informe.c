@@ -204,14 +204,16 @@ int informe_imprimirPedidosProcesados(Pedido *pedidoList, int pedidoLen, Cliente
 }
 
 
-int informe_imprimirClientesConPendientes(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen)
+int informe_imprimirMaximo(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen)
 {
 	int output = -1;
 	int contadorPendientes = 0;
+	int flag = 0;
+	int maximo;
+	int clienteMasPedido;
 
 	if(pedidoList != NULL && pedidoLen > 0 && clienteList != NULL && clienteLen > 0)
 	{
-		printf("\n%4s %20s %10s %25s %15s %6s", "ID", "NOMBRE EMPRESA", "CUIT", "DIRECCION", "LOCALIDAD", "PENDIENTES");
 		for(int i = 0; i < clienteLen; i++)
 		{
 			if(clienteList[i].isEmpty == FALSE)
@@ -223,23 +225,56 @@ int informe_imprimirClientesConPendientes(Pedido *pedidoList, int pedidoLen, Cli
 						contadorPendientes++;
 					}
 				}
-
-				if(contadorPendientes > 0)
+				if(contadorPendientes > maximo || flag == 0)
 				{
-
-					printf("\n%4d %20s %15s %20s %15d %6d", clienteList[i].id, clienteList[i].nombreEmpresa, clienteList[i].cuit, clienteList[i].direccion, clienteList[i].idLocalidad, contadorPendientes);
-					contadorPendientes = 0;
-					//imprimirClientesConPendientes(pedidoList, pedidoLen, contadorPendientes);
+					clienteMasPedido = clienteList[i].id;
+					maximo = contadorPendientes;
+					flag = 1;
 				}
-				else
-				{
-
-					printf("\n%4d %20s %15s %20s %15d %6d ", clienteList[i].id, clienteList[i].nombreEmpresa, clienteList[i].cuit, clienteList[i].direccion, clienteList[i].idLocalidad, 0);
-				}
-
+				contadorPendientes = 0;
 			}
+
 		}
+			printf("\nEl usuario con mas pedidos es el ID:%4d", clienteMasPedido);
 		output = 0;
 	}
 	return output;
+}
+
+
+int informe_imprimirClientesConMasCompletos(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen)
+{
+	int output = -1;
+		int contadorPendientes = 0;
+		int flag = 0;
+		int maximo;
+		int clienteMasPedido;
+
+		if(pedidoList != NULL && pedidoLen > 0 && clienteList != NULL && clienteLen > 0)
+		{
+			for(int i = 0; i < clienteLen; i++)
+			{
+				if(clienteList[i].isEmpty == FALSE)
+				{
+					for(int j = 0; j < pedidoLen; j++)
+					{
+						if(clienteList[i].id == pedidoList[j].idCliente && strncasecmp(pedidoList[j].estadoPedido, COMPLETADO, ESTADO_LEN) == 0)
+						{
+							contadorPendientes++;
+						}
+					}
+					if(contadorPendientes > maximo || flag == 0)
+					{
+						clienteMasPedido = clienteList[i].id;
+						maximo = contadorPendientes;
+						flag = 1;
+					}
+					contadorPendientes = 0;
+				}
+
+			}
+				printf("\nEl usuario con mas pedidos es el ID:%4d", clienteMasPedido);
+			output = 0;
+		}
+		return output;
 }

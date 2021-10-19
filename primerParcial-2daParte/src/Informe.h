@@ -64,4 +64,7 @@ int informe_imprimirPedidosPendientes(Pedido *pedidoList, int pedidoLen, Cliente
  */
 int informe_imprimirPedidosProcesados(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen);
 
+int informe_imprimirMaximo(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen);
+int informe_imprimirClientesConMasCompletos(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen);
+
 #endif
