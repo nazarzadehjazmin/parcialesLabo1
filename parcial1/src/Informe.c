@@ -218,7 +218,6 @@ int informe_imprimirClientesConPendientes(Pedido *pedidoList, int pedidoLen, Cli
 {
 	int output = -1;
 	int contadorPendientes = 0;
-	int flagPrimerPendiente = 0;
 
 	if(pedidoList != NULL && pedidoLen > 0 && clienteList != NULL && clienteLen > 0)
 	{
@@ -234,28 +233,19 @@ int informe_imprimirClientesConPendientes(Pedido *pedidoList, int pedidoLen, Cli
 					}
 				}
 
-				if(flagPrimerPendiente == 0 && contadorPendientes > 0)
+				if(contadorPendientes > 0)
 				{
-					flagPrimerPendiente = 1;
 					printf("\n%4s %20s %10s %25s %15s %6s", "ID", "NOMBRE EMPRESA", "CUIT", "DIRECCION", "LOCALIDAD", "PENDIENTES");
-				}
-				else if(contadorPendientes > 0)
-				{
 					printf("\n%4d %20s %15s %20s %15s %6d", clienteList[i].id, clienteList[i].nombreEmpresa, clienteList[i].cuit, clienteList[i].direccion, clienteList[i].localidad, contadorPendientes);
 					contadorPendientes = 0;
 				}
+				else
+				{
+					printf("\nNo hay pedidos pendientes para mostrar");
+				}
 			}
 		}
-
-		if(flagPrimerPendiente == 0)
-		{
-			printf("\nNo hay pedidos pendientes para mostrar.");
-			output = -1;
-		}
-		else
-		{
-			output = 0;
-		}
+		output = 0;
 	}
 	return output;
 }
