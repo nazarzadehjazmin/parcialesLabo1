@@ -456,7 +456,7 @@ int hardcodearData_PedidoRecoleccion(Pedido* list, int len)
 		addPedidoRecoleccion(list, len, 4, 0, 0, 0, 400, PENDIENTE, 4);
 		addPedidoRecoleccion(list, len, 5, 0, 0, 0, 500, PENDIENTE, 5);
 		addPedidoRecoleccion(list, len, 6, 0, 0, 0, 350, PENDIENTE, 6);
-		//printPedidosRecoleccion(pedidoList, pedidoLen);
+		printPedidosRecoleccion(list, len);
 		output = 0;
 	}
 
