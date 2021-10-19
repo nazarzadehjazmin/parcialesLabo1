@@ -52,7 +52,6 @@ int uploadCliente(Cliente *list, int len, int *id)
 	{
 		if(utn_getNombre(buffer.nombreEmpresa, "\nNombre de la empresa: ", ERROR_MSG, NOMBREEMPRESA_LEN, QTY_REINTENTO) == 0 &&
 		   utn_getCuit(buffer.cuit, "\nCUIT: ", ERROR_MSG, CUIT_LEN, QTY_REINTENTO) == 0 &&
-		   //utn_getAlfanumerico("\nDireccion: ", ERROR_MSG, buffer.direccion, DIRECCION_LEN, QTY_REINTENTO) == 0 &&
 		   utn_getDireccion(buffer.direccion, "\nDireccion - Calle: ", "\nAltura", ERROR_MSG, ERROR_ALTURA) == 0 &&
 		   utn_getNombre(buffer.localidad, "\nLocalidad: ", ERROR_MSG, LOCALIDAD_LEN, QTY_REINTENTO) == 0
 		   )
@@ -73,7 +72,6 @@ int addCliente(Cliente* list, int len, int id, char nombreEmpresa[], char cuit[]
 {
 	int output = -1;
 	int i;
-	//int auxContador = 0;
 
 	if(list != NULL && len > 0 && id > 0 && nombreEmpresa != NULL && cuit != NULL && direccion != NULL && localidad != NULL)
 	{
@@ -84,11 +82,6 @@ int addCliente(Cliente* list, int len, int id, char nombreEmpresa[], char cuit[]
 		strncpy(list[i].direccion, direccion, DIRECCION_LEN);
 		strncpy(list[i].localidad, localidad, LOCALIDAD_LEN);
 		list[i].isEmpty = FALSE;
-
-/*
-		auxContador = list[i].contadorPedido;
-		auxContador++;
-		list[i].contadorPedido = auxContador;*/
 
 		output = 0;
 	}
@@ -256,7 +249,7 @@ int ModificarCliente(Cliente* list, int len)
 			{
 				do
 				{
-					if(utn_getNumero(&option, "\nQue desea modificar? \n1-Direccion \n2-Localidad \n5-Volver al menu principal", ERROR_MSG, 1, 5, QTY_REINTENTO) == 0)
+					if(utn_getNumero(&option, "\nQue desea modificar? \n1-Direccion \n2-Localidad \n3-Volver al menu principal", ERROR_MSG, 1, 5, QTY_REINTENTO) == 0)
 					{
 						switch(option)
 						{

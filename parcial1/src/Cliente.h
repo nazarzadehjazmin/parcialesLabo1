@@ -28,7 +28,6 @@ typedef struct
 	 char cuit[CUIT_LEN];
 	 char direccion[DIRECCION_LEN];
 	 char localidad[LOCALIDAD_LEN];
-	 //int contadorPedido;
 	 int isEmpty;
 } Cliente;
 

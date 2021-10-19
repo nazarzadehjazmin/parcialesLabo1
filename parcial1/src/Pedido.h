@@ -63,7 +63,6 @@ int findEmptyIndex_Pedido(Pedido *list, int len);
  * \return int Return (-1) if Error [Invalid length or NULL pointer] - return the empty id if Ok
  *
  */
-//int uploadPedidoRecoleccion(Pedido *list, int len, int *id, Cliente *clienteList, int clienteLen);
 int uploadPedidoRecoleccion(Pedido *pedidoList, int pedidoLen, int *id, Cliente *clienteList, int clienteLen);
 
 /** \brief add in a existing list of order the values received as parameters
@@ -84,10 +83,18 @@ free space] - (0) if Ok
 int addPedidoRecoleccion(Pedido* list, int len, int id, float kgHDPE, float kgLDPE, float kgPP, float totalKg, char estadoPedido[], int idCliente);
 
 
-
+/** \brief Se imprimirán los pedidos por pantalla y se pedirá seleccionar el ID de uno de ellos. Luego deberán ingresarse la cantidad de kilos
+de plástico de cada uno de los 3 tipos que la empresa puede procesar que se obtuvieron de los kilos totales que se recolectaron. Por último, se marcará al pedido como “Completado”
+ *
+ * \param list Pedido*
+ * \param len int
+ * \return Return employee index position or (-1) if [Invalid length or NULL
+pointer received or employee not found]
+ *
+ */
 int procesarResiduos(Pedido* pedidoList, int pedidoLen);
 
-/** \brief find an order by Id en returns the index position in array.
+/** \brief find an order by Id and returns the index position in array.
  *
  * \param list Pedido*
  * \param len int
@@ -118,7 +125,7 @@ int printPedidoRecoleccion(Pedido* pedido);
 int printPedidosRecoleccion(Pedido* pedidoList, int pedidoLen);
 
 
-/** \brief for preloaded data
+/** \brief preloaded data for pedido de recoleccion
  *
  * \param list Pedido*
  * \param len int
@@ -127,7 +134,13 @@ int printPedidosRecoleccion(Pedido* pedidoList, int pedidoLen);
  */
 int hardcodearData_PedidoRecoleccion(Pedido* list, int len);
 
-
+/** \brief preloaded data for pedidos procesados
+ *
+ * \param list Pedido*
+ * \param len int
+ * \return int 0 success, -1 error
+ *
+ */
 int hardcodear_PedidoProcesado(Pedido* list, int len);
 
 /** \brief creates a menu for "alta"
@@ -150,27 +163,5 @@ int alta_menu_Pedido(Pedido* pedidoList, int pedidoLen, Cliente* clienteList, in
  */
 int isPedidoListEmpty(Pedido *list, int len);
 
-
-
-/** \brief changes the different parameters of one order
- *
- * \param list Pedido*
- * \param len int
- * \return int 0 success, -1 error
- *
- */
-//int ModificarPedido(Pedido* list, int len);
-
-
-/** \brief Remove a order by Id (put isEmpty Flag in 1)
- *
- * \param list Pedido*
- * \param len int
- * \param id int
- * \return int Return (-1) if Error [Invalid length or NULL pointer or if can't
-find a employee] - (0) if Ok
- *
- */
-//int removePedido(Pedido* list, int len, int id);
 
 #endif
