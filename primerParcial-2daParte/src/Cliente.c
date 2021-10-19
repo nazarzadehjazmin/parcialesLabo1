@@ -190,8 +190,8 @@ int alta_menu(Cliente* list, int len, Localidad* localidadList, int localidadLen
 
 						break;
 					case 2:
-						//mostrar print de localidades
-						if(printLocalidades(localidadList, localidadLen) == 0  &&
+						if(//hardcodearData_localidad(localidadList, localidadLen) == 0 &&
+							//printLocalidades(localidadList, localidadLen) == 0 &&
 						   uploadCliente(list, len, &id) == 0 &&
 						   printClientes(list, len) == 0
 						   )

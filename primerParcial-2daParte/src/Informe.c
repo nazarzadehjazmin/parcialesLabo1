@@ -4,18 +4,18 @@
 int informe_imprimirLocalidadPendiente(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen)
 {
 	int output = -1;
-	char localidad[LOCALIDAD_LEN];
 	int contadorPendientes = 0;
+	int localidad;
 
 	if(pedidoList != NULL && pedidoLen > 0 && clienteList != NULL && clienteLen > 0)
 	{
-		if(utn_getNombre(localidad, "Ingrese la localidad que desea listar:", "Localidad ingresada invalida.", LOCALIDAD_LEN , QTY_REINTENTO) == 0)
+		if(utn_getNumero(&localidad, "Ingrese la localidad que desea listar:", "Localidad ingresada invalida.", 1, 100, QTY_REINTENTO) == 0)
 		{
 			for(int i = 0; i < clienteLen; i++)
 			{
-				if(strncasecmp(localidad,clienteList[i].idLocalidad,LOCALIDAD_LEN) == 0)
+				if(clienteList[i].idLocalidad ==localidad)
 				{
-					strncpy(localidad,clienteList[i].idLocalidad,LOCALIDAD_LEN);
+					clienteList[i].idLocalidad = localidad;
 					for(int j = 0; j < pedidoLen; j++)
 					{
 						if((clienteList[i].id==pedidoList[j].idCliente) && (strncasecmp(pedidoList[j].estadoPedido, PENDIENTE, ESTADO_LEN) == 0))
@@ -32,7 +32,7 @@ int informe_imprimirLocalidadPendiente(Pedido *pedidoList, int pedidoLen, Client
 			}
 			else
 			{
-				printf("\nEn la localidad %s quedan pendientes %d pedidos.", localidad, contadorPendientes);
+				printf("\nEn la localidad %d quedan pendientes %d pedidos.", localidad, contadorPendientes);
 				output = 0;
 			}
 		}
@@ -105,14 +105,14 @@ int informe_imprimirClientesConPendientes(Pedido *pedidoList, int pedidoLen, Cli
 				if(contadorPendientes > 0)
 				{
 
-					printf("\n%4d %20s %15s %20s %15s %6d", clienteList[i].id, clienteList[i].nombreEmpresa, clienteList[i].cuit, clienteList[i].direccion, clienteList[i].idLocalidad, contadorPendientes);
+					printf("\n%4d %20s %15s %20s %15d %6d", clienteList[i].id, clienteList[i].nombreEmpresa, clienteList[i].cuit, clienteList[i].direccion, clienteList[i].idLocalidad, contadorPendientes);
 					contadorPendientes = 0;
 					//imprimirClientesConPendientes(pedidoList, pedidoLen, contadorPendientes);
 				}
 				else
 				{
 
-					printf("\n%4d %20s %15s %20s %15s %6d ", clienteList[i].id, clienteList[i].nombreEmpresa, clienteList[i].cuit, clienteList[i].direccion, clienteList[i].idLocalidad, 0);
+					printf("\n%4d %20s %15s %20s %15d %6d ", clienteList[i].id, clienteList[i].nombreEmpresa, clienteList[i].cuit, clienteList[i].direccion, clienteList[i].idLocalidad, 0);
 				}
 
 			}
@@ -203,3 +203,43 @@ int informe_imprimirPedidosProcesados(Pedido *pedidoList, int pedidoLen, Cliente
 	return output;
 }
 
+
+int informe_imprimirClientesConPendientes(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen)
+{
+	int output = -1;
+	int contadorPendientes = 0;
+
+	if(pedidoList != NULL && pedidoLen > 0 && clienteList != NULL && clienteLen > 0)
+	{
+		printf("\n%4s %20s %10s %25s %15s %6s", "ID", "NOMBRE EMPRESA", "CUIT", "DIRECCION", "LOCALIDAD", "PENDIENTES");
+		for(int i = 0; i < clienteLen; i++)
+		{
+			if(clienteList[i].isEmpty == FALSE)
+			{
+				for(int j = 0; j < pedidoLen; j++)
+				{
+					if(clienteList[i].id == pedidoList[j].idCliente && strncasecmp(pedidoList[j].estadoPedido, PENDIENTE, ESTADO_LEN) == 0)
+					{
+						contadorPendientes++;
+					}
+				}
+
+				if(contadorPendientes > 0)
+				{
+
+					printf("\n%4d %20s %15s %20s %15d %6d", clienteList[i].id, clienteList[i].nombreEmpresa, clienteList[i].cuit, clienteList[i].direccion, clienteList[i].idLocalidad, contadorPendientes);
+					contadorPendientes = 0;
+					//imprimirClientesConPendientes(pedidoList, pedidoLen, contadorPendientes);
+				}
+				else
+				{
+
+					printf("\n%4d %20s %15s %20s %15d %6d ", clienteList[i].id, clienteList[i].nombreEmpresa, clienteList[i].cuit, clienteList[i].direccion, clienteList[i].idLocalidad, 0);
+				}
+
+			}
+		}
+		output = 0;
+	}
+	return output;
+}
