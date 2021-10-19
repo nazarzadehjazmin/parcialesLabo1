@@ -28,14 +28,14 @@ int crearPedidoRecoleccion(Pedido* listPedido, int pedidoLen, Cliente* clienteLi
 */
 
 /*
-
- */
 //DEVUELVE LA CANTIDAD DE PEDIDOS PENDIENTES
-int contadorPedidosPendientes (Pedido* pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen)
+//no
+int contadorPedidosPendientes2 (Pedido* pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen)
 {
   int retorno = -1;
   int contadorPendientes = 0;
   int i;
+  int clienteEncontrado;
 
 
   if (pedidoList != NULL && pedidoLen > 0 && clienteList != NULL && clienteLen > 0)
@@ -43,17 +43,20 @@ int contadorPedidosPendientes (Pedido* pedidoList, int pedidoLen, Cliente* clien
 	  for(int j = 0; i < clienteLen; j++)
 	  {
 		  //sacar id del cliente
-		  findClienteById(clienteList, clienteLen, j);
-
-		  for (i = 0; i < pedidoLen; i++)
+		  clienteEncontrado = findClienteById(clienteList, clienteLen, j);
+		  if(clienteEncontrado != -1)
 		  {
-			  if (pedidoList[i].isEmpty == FALSE_P &&
-				  strncasecmp(pedidoList[i].estadoPedido, PENDIENTE, ESTADO_LEN) == 0)
-			  {
-				  //pedidos pendientes de ese id y q me los cuente
-				  contadorPendientes++;
-			  }
+			   for (i = 0; i < pedidoLen; i++)
+			   {
+				   if (pedidoList[i].isEmpty == FALSE_P &&
+						   strncasecmp(pedidoList[i].estadoPedido, PENDIENTE, ESTADO_LEN) == 0)
+				   {
+					   //pedidos pendientes de ese id y q me los cuente
+					   contadorPendientes++;
+				   }
+			   }
 		  }
+
 	  }
 
       retorno = contadorPendientes;
@@ -61,6 +64,8 @@ int contadorPedidosPendientes (Pedido* pedidoList, int pedidoLen, Cliente* clien
 
   return retorno;
 }
+
+//no
 
 int informe_imprimirClientePedidoPendiente(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen)
 {
@@ -70,7 +75,7 @@ int informe_imprimirClientePedidoPendiente(Pedido *pedidoList, int pedidoLen, Cl
 	if(pedidoList != NULL && pedidoLen > 0)
 	{
 		printf("\n%s %10s %10s %10s %10s %10s %10s %10s", "ID_P", "KgHDPE", "KgLDPE", "KgPP", "TOTALKg", "ESTADO", "ID_C", "CANT PENDIENTE");
-		cantidadPendientes = contadorPedidosPendientes(pedidoList, pedidoLen, clienteList, clienteLen);
+		cantidadPendientes = contadorPedidosPendientes2(pedidoList, pedidoLen, clienteList, clienteLen);
 		if(cantidadPendientes != -1)
 		{
 			for(int i = 0; i < pedidoLen; i++)
@@ -88,7 +93,168 @@ int informe_imprimirClientePedidoPendiente(Pedido *pedidoList, int pedidoLen, Cl
 
 	return output;
 }
+*/
+
+/*
+int contadorPedidosPendientes(Pedido* pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen)
+{
+  int retorno = -1;
+  int contadorPendientes = 0;
+  int i;
+  int clienteEncontrado;
 
 
+  if (pedidoList != NULL && pedidoLen > 0 && clienteList != NULL && clienteLen > 0)
+    {
+	  for(int j = 0; i < clienteLen; j++)
+	  {
+		  //sacar id del cliente
+		  clienteEncontrado = findClienteById(clienteList, clienteLen, j);
+		  if(clienteEncontrado != -1)
+		  {
+			   for (i = 0; i < pedidoLen; i++)
+			   {
+				   if (pedidoList[clienteEncontrado].isEmpty == FALSE_P &&
+						   strncasecmp(pedidoList[clienteEncontrado].estadoPedido, PENDIENTE, ESTADO_LEN) == 0)
+				   {
+					   //pedidos pendientes de ese id y q me los cuente
+					   contadorPendientes++;
+				   }
+			   }
+		  }
 
+	  }
+
+      retorno = contadorPendientes;
+    }
+
+  return retorno;
+}
+
+*/
+
+
+int informe_imprimirLocalidadPendiente(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen)
+{
+	int output = -1;
+	char localidad[LOCALIDAD_LEN];
+	int contadorPendientes = 0;
+
+	if(pedidoList != NULL && pedidoLen > 0 && clienteList != NULL && clienteLen > 0)
+	{
+		if(utn_getNombre(localidad, "Ingrese la localidad que desea listar:", "Localidad ingresada invalida.", LOCALIDAD_LEN , QTY_REINTENTO) == 0)
+		{
+			for(int i = 0; i < clienteLen; i++)
+			{
+				if(strncasecmp(localidad,clienteList[i].localidad,LOCALIDAD_LEN) == 0)
+				{
+					strncpy(localidad,clienteList[i].localidad,LOCALIDAD_LEN);
+					for(int j = 0; j < pedidoLen; j++)
+					{
+						if((clienteList[i].id==pedidoList[j].idCliente) && (strncasecmp(pedidoList[j].estadoPedido, PENDIENTE, ESTADO_LEN) == 0))
+						{
+							contadorPendientes++;
+						}
+					}
+				}
+			}
+			if(contadorPendientes < 1)
+			{
+				printf("\nLa localidad ingresada no coincide con ninguna en el registro de pedidos pendientes.");
+				output =-1;
+			}
+			else
+			{
+				printf("\nEn la localidad %s quedan pendientes %d pedidos.", localidad, contadorPendientes);
+				output = 0;
+			}
+		}
+	}
+	return output;
+}
+
+int informe_imprimirPromedioPPCliente(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen)
+{
+	int output = -1;
+	int contadorClientes = 0;
+	float acumuladorKilosPP = 0;
+	float promedio;
+
+	if(pedidoList != NULL && pedidoLen > 0 && clienteList != NULL && clienteLen > 0)
+	{
+			for(int i = 0; i < clienteLen; i++)
+			{
+				if(clienteList[i].isEmpty == FALSE)
+				{
+					contadorClientes++;
+				}
+			}
+
+			for(int j = 0; j < pedidoLen;j++)
+			{
+				if(pedidoList[j].isEmpty == FALSE)
+				{
+					acumuladorKilosPP = acumuladorKilosPP + pedidoList[j].kgPP;
+				}
+			}
+
+			if(acumuladorKilosPP == 0)
+			{
+				printf("\nNo se ha cargado PP, ingrese a la opcion 5 primero");
+			}
+			else
+			{
+				promedio = acumuladorKilosPP / (float)contadorClientes;
+				printf("\nEl promedio de PP reciclado es de %.2f Kg por cliente.", promedio);
+				output = 0;
+			}
+	}
+
+
+	return output;
+}
+
+int informe_imprimirClientesConPendientes(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen)
+{
+	int output = -1;
+	int contadorPendientes = 0;
+	int flagPrimerPendiente=0;
+
+	if(pedidoList != NULL && pedidoLen > 0 && clienteList != NULL && clienteLen > 0)
+	{
+			for(int i = 0; i < clienteLen; i++)
+			{
+				if(clienteList[i].isEmpty==FALSE)
+				{
+					for(int j = 0; j < pedidoLen; j++)
+					{
+						if((clienteList[i].id==pedidoList[j].idCliente) && (strncasecmp(pedidoList[j].estadoPedido, PENDIENTE, ESTADO_LEN) == 0))
+						{
+							contadorPendientes++;
+						}
+					}
+					if(flagPrimerPendiente==0 && contadorPendientes >0)
+					{
+						flagPrimerPendiente=1;
+						printf("\n%4s %20s %15s %25s %25s %11s", "ID", "NOMBRE EMPRESA", "CUIT", "DIRECCION", "LOCALIDAD", "PENDIENTES");
+					}
+					else if(contadorPendientes >0)
+					{
+						printf("\n%4d %20s %15s\t %25s %15s %12d",clienteList[i].id, clienteList[i].nombreEmpresa, clienteList[i].cuit, clienteList[i].direccion, clienteList[i].localidad, contadorPendientes);
+						contadorPendientes=0;
+					}
+				}
+			}
+			if(flagPrimerPendiente==0)
+			{
+				printf("\nNo hay pedidos pendientes para mostrar.");
+				output =-1;
+			}
+			else
+			{
+				output = 0;
+			}
+		}
+	return output;
+}
 

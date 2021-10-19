@@ -11,8 +11,14 @@
 
 //int crearPedidoRecoleccion(Pedido* listPedido, int pedidoLen, Cliente* clienteList, int clienteLen);
 
-int contadorPedidosPendientes (Pedido* pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen);
+//int contadorPedidosPendientes2 (Pedido* pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen);
 
-int informe_imprimirClientePedidoPendiente(Pedido* pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen);
+//int informe_imprimirClientePedidoPendiente(Pedido* pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen);
+
+int informe_imprimirLocalidadPendiente(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen);
+
+int informe_imprimirPromedioPPCliente(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen);
+
+int informe_imprimirClientesConPendientes(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen);
 
 #endif

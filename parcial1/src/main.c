@@ -16,7 +16,7 @@ int main(void) {
 	{
 		do
 		{
-			if(utn_getNumero(&menuOption, "\n\nMenu principal:\n1-Alta cliente \n2-Modificar cliente \n3-Baja cliente \n4-Crear pedido de recoleccion \n5-Procesar residuos \n6-Imprimir clientes \n7-Imprimir pedidos pendientes \n8-Imprimir pedidos procesados \n9- \n10- \n11-Salir \n", ERROR_MSG, 1, 10, QTY_REINTENTO) == 0)
+			if(utn_getNumero(&menuOption, "\n\nMenu principal:\n1-Alta cliente \n2-Modificar cliente \n3-Baja cliente \n4-Crear pedido de recoleccion \n5-Procesar residuos \n6-Imprimir clientes \n7-Imprimir pedidos pendientes \n8-Imprimir pedidos procesados \n9- \n10- \n11-Salir \n", ERROR_MSG, 1, 11, QTY_REINTENTO) == 0)
 			{
 				switch(menuOption)
 				{
@@ -60,7 +60,7 @@ int main(void) {
 						if(isClienteListEmpty(clienteList, QTY_CLIENTE) == 0 &&
 						   isPedidoListEmpty(pedidoList, QTY_PEDIDO) == 0)
 						{
-							procesarResiduos(pedidoList, QTY_PEDIDO, clienteList, QTY_CLIENTE);
+							procesarResiduos(pedidoList, QTY_PEDIDO);
 						}
 						else
 						{
@@ -71,7 +71,7 @@ int main(void) {
 						if(isClienteListEmpty(clienteList, QTY_CLIENTE) == 0 &&
 						   isPedidoListEmpty(pedidoList, QTY_PEDIDO) == 0)
 						{
-							procesarResiduos(pedidoList, QTY_PEDIDO, clienteList, QTY_CLIENTE);
+							informe_imprimirClientesConPendientes(pedidoList, QTY_PEDIDO, clienteList, QTY_CLIENTE);
 						}
 						else
 						{
@@ -79,16 +79,32 @@ int main(void) {
 						}
 						break;
 					case 7:
+						if(isClienteListEmpty(clienteList, QTY_CLIENTE) == 0 &&
+						   isPedidoListEmpty(pedidoList, QTY_PEDIDO) == 0)
+						{
 
+						}
 						break;
 					case 8:
+						if(isClienteListEmpty(clienteList, QTY_CLIENTE) == 0 &&
+						   isPedidoListEmpty(pedidoList, QTY_PEDIDO) == 0)
+						{
 
+						}
 						break;
 					case 9:
-
+						if(isClienteListEmpty(clienteList, QTY_CLIENTE) == 0 &&
+						   isPedidoListEmpty(pedidoList, QTY_PEDIDO) == 0)
+						{
+							informe_imprimirLocalidadPendiente(pedidoList, QTY_PEDIDO, clienteList, QTY_CLIENTE);
+						}
 						break;
 					case 10:
-
+						if(isClienteListEmpty(clienteList, QTY_CLIENTE) == 0 &&
+						   isPedidoListEmpty(pedidoList, QTY_PEDIDO) == 0)
+						{
+							informe_imprimirPromedioPPCliente(pedidoList, QTY_PEDIDO, clienteList, QTY_CLIENTE);
+						}
 						break;
 				}
 			}

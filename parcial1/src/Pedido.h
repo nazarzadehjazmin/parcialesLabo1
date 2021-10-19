@@ -85,7 +85,7 @@ int addPedidoRecoleccion(Pedido* list, int len, int id, float kgHDPE, float kgLD
 
 
 
-int procesarResiduos(Pedido* pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen);
+int procesarResiduos(Pedido* pedidoList, int pedidoLen);
 
 /** \brief find an order by Id en returns the index position in array.
  *

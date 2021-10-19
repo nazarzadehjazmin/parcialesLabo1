@@ -231,6 +231,7 @@ int addPedidoRecoleccion(Pedido* list, int len, int id, float kgHDPE, float kgLD
 }
 */
 
+/*
 int uploadPedidoRecoleccion(Pedido *pedidoList, int pedidoLen, int *id, Cliente *clienteList, int clienteLen)
 {
 	int output = -1;
@@ -253,13 +254,10 @@ int uploadPedidoRecoleccion(Pedido *pedidoList, int pedidoLen, int *id, Cliente 
 				buffer.kgHDPE = 0;
 				buffer.kgLDPE = 0;
 				buffer.kgPP = 0;
-				//inicializo a todos como pendientes
 				strncpy(buffer.estadoPedido, PENDIENTE, ESTADO_LEN);
-				buffer.idCliente = idClienteBuscado;
+				buffer.idCliente = idClienteIngresado;
 				pedidoList[idClienteBuscado] = buffer;
-
 				printPedidosRecoleccion(pedidoList, pedidoLen);
-				printf("\nPedido de recoleccion agregado exitosamente");
 
 			}
 		}
@@ -268,6 +266,43 @@ int uploadPedidoRecoleccion(Pedido *pedidoList, int pedidoLen, int *id, Cliente 
 
 	return output;
 }
+*/
+
+int uploadPedidoRecoleccion(Pedido *pedidoList, int pedidoLen, int *id, Cliente *clienteList, int clienteLen)
+{
+	int output = -1;
+	Pedido buffer;
+	int idClienteIngresado;
+	int auxIndexPedido;
+
+	if(pedidoList != NULL && pedidoLen > 0 && findEmptyIndex_Pedido(pedidoList, pedidoLen) != -1 && clienteList != NULL && clienteLen > 0)
+	{
+
+		if(utn_getNumero(&idClienteIngresado, "\nId del cliente existente: ", ERROR_MSG_P, 1, QTY_CLIENTE_P, QTY_REINTENTOS_P) == 0)
+		{
+
+			if(findClienteById(clienteList, clienteLen, idClienteIngresado) != -1 &&
+		       utn_getFloat(&buffer.totalKg, "\nCantidad total de residuos (Kg): ", ERROR_MSG_P, MIN_KG, MAX_KG, QTY_REINTENTOS_P) == 0)
+			{
+
+				auxIndexPedido = findEmptyIndex_Pedido(pedidoList, pedidoLen);
+				buffer.id = generateNewId_Pedido();
+				buffer.kgHDPE = 0;
+				buffer.kgLDPE = 0;
+				buffer.kgPP = 0;
+				strncpy(buffer.estadoPedido, PENDIENTE, ESTADO_LEN);
+				buffer.idCliente = idClienteIngresado;
+				pedidoList[auxIndexPedido] = buffer;
+				printPedidosRecoleccion(pedidoList, pedidoLen);
+
+			}
+		}
+		output = 0;
+	}
+
+	return output;
+}
+
 
 int addPedidoRecoleccion(Pedido* list, int len, int id, float kgHDPE, float kgLDPE, float kgPP, float totalKg, char estadoPedido[], int idCliente)
 {
@@ -301,7 +336,7 @@ Luego deberán ingresarse la cantidad de kilos de plástico de cada uno de los 3 t
 Por último, se marcará al pedido como “Completado”.
 */
 
-int procesarResiduos(Pedido* pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen)
+int procesarResiduos(Pedido* pedidoList, int pedidoLen)
 {
 	int output = -1;
 	int idIngresado;
@@ -309,7 +344,7 @@ int procesarResiduos(Pedido* pedidoList, int pedidoLen, Cliente* clienteList, in
 	Pedido buffer;
 	char response;
 	float sumaKgTotal;
-	int auxContador = 0;
+	//int auxContador = 0;
 
 	if(pedidoList != NULL && pedidoLen > 0)
 	{
@@ -334,9 +369,10 @@ int procesarResiduos(Pedido* pedidoList, int pedidoLen, Cliente* clienteList, in
 						pedidoList[index].kgHDPE = buffer.kgHDPE;
 						pedidoList[index].kgLDPE = buffer.kgLDPE;
 						pedidoList[index].kgPP = buffer.kgPP;
-						auxContador = clienteList[index].contadorPedido;
+
+						/*auxContador = clienteList[index].contadorPedido;
 						auxContador++;
-						clienteList[index].contadorPedido = auxContador;
+						clienteList[index].contadorPedido = auxContador;*/
 
 						strncpy(pedidoList[index].estadoPedido, COMPLETADO, ESTADO_LEN);
 						printf("\nSus residuos han sido procesados");
@@ -420,7 +456,7 @@ int hardcodearData_PedidoRecoleccion(Pedido* list, int len)
 		addPedidoRecoleccion(list, len, 4, 0, 0, 0, 400, PENDIENTE, 4);
 		addPedidoRecoleccion(list, len, 5, 0, 0, 0, 500, PENDIENTE, 5);
 		addPedidoRecoleccion(list, len, 6, 0, 0, 0, 350, PENDIENTE, 6);
-		//printPedidosRecoleccion(pedidoList, pedidoLen, clienteList);
+		//printPedidosRecoleccion(pedidoList, pedidoLen);
 		output = 0;
 	}
 

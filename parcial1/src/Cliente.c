@@ -58,6 +58,7 @@ int uploadCliente(Cliente *list, int len, int *id)
 		   )
 		{
 			buffer.id = generateNewId();
+
 			if(addCliente(list, len, buffer.id, buffer.nombreEmpresa, buffer.cuit, buffer.direccion, buffer.localidad, buffer.contadorPedido) == 0)
 			{
 				output = 0;
@@ -72,6 +73,7 @@ int addCliente(Cliente* list, int len, int id, char nombreEmpresa[], char cuit[]
 {
 	int output = -1;
 	int i;
+	int auxContador = 0;
 
 	if(list != NULL && len > 0 && id > 0 && nombreEmpresa != NULL && cuit != NULL && direccion != NULL && localidad != NULL && contadorPedido >= 0)
 	{
@@ -82,7 +84,17 @@ int addCliente(Cliente* list, int len, int id, char nombreEmpresa[], char cuit[]
 		strncpy(list[i].direccion, direccion, DIRECCION_LEN);
 		strncpy(list[i].localidad, localidad, LOCALIDAD_LEN);
 		list[i].isEmpty = FALSE;
-		list[i].contadorPedido = 0;
+
+		//VER
+		//NO ME CARGA BIEN EL CONTADOR PEDIDO
+		//NO ME GENERA BIEN EL ID DEL CLIENTE EN EL PEDIDO, ME DEVUELVE 0
+		//CUANDO CARGO UN CLIENTE ME CARGA MAL EL CUIT. CUIT Y DIRECCION ME LOS PONE EN UNA MISMA COLUMNA
+		//contadorPedido = list[i].contadorPedido;
+		//contadorPedido++;
+		auxContador = list[i].contadorPedido;
+		auxContador++;
+		list[i].contadorPedido = auxContador;
+
 		output = 0;
 	}
 
@@ -115,7 +127,7 @@ int printCliente(Cliente* cliente)
 
 	if(cliente != NULL && cliente->isEmpty == FALSE)
 	{
-		printf("\n%4d %20s %20s %20s %20s %4d",cliente->id, cliente->nombreEmpresa, cliente->cuit, cliente->direccion, cliente->localidad, cliente->contadorPedido);
+		printf("\n%4d %20s %15s %20s %15s %10d",cliente->id, cliente->nombreEmpresa, cliente->cuit, cliente->direccion, cliente->localidad, cliente->contadorPedido);
 		output = 0;
 	}
 
@@ -128,7 +140,7 @@ int printClientes(Cliente* list, int length)
 
 	if(list != NULL && length > 0)
 	{
-		printf("\n%4s %20s %15s %25s %20s %4s", "ID", "NOMBRE EMPRESA", "CUIT", "DIRECCION", "LOCALIDAD", "PENDIENTES");
+		printf("\n%4s %20s %10s %25s %15s %15s", "ID", "NOMBRE EMPRESA", "CUIT", "DIRECCION", "LOCALIDAD", "PENDIENTES");
 		for(int i = 0; i < length; i++)
 		{
 			printCliente(&list[i]);

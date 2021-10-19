@@ -13,7 +13,7 @@
 #define QTY_CLIENTE 100
 #define QTY_REINTENTO 10
 #define NOMBREEMPRESA_LEN 60
-#define CUIT_LEN 11
+#define CUIT_LEN 12
 #define LOCALIDAD_LEN 60
 #define DIRECCION_LEN 100
 #define ID_NOEXISTE "\nEl id ingresado no existe"
