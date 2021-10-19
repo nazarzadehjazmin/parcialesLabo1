@@ -21,4 +21,6 @@ int informe_imprimirPromedioPPCliente(Pedido *pedidoList, int pedidoLen, Cliente
 
 int informe_imprimirClientesConPendientes(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen);
 
+int informe_imprimirPedidosPendientes(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen);
+
 #endif

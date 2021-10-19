@@ -16,7 +16,7 @@ int main(void) {
 	{
 		do
 		{
-			if(utn_getNumero(&menuOption, "\n\nMenu principal:\n1-Alta cliente \n2-Modificar cliente \n3-Baja cliente \n4-Crear pedido de recoleccion \n5-Procesar residuos \n6-Imprimir clientes \n7-Imprimir pedidos pendientes \n8-Imprimir pedidos procesados \n9- \n10- \n11-Salir \n", ERROR_MSG, 1, 11, QTY_REINTENTO) == 0)
+			if(utn_getNumero(&menuOption, "\n\nMenu principal:\n1-Alta cliente \n2-Modificar cliente \n3-Baja cliente \n4-Crear pedido de recoleccion \n5-Procesar residuos \n6-Imprimir clientes \n7-Imprimir pedidos pendientes \n8-Imprimir pedidos procesados \n9-Cantidad de pedidos pendientes por localidad \n10-Cantidad de kg de PP promedio por cliente \n11-Salir \n", ERROR_MSG, 1, 11, QTY_REINTENTO) == 0)
 			{
 				switch(menuOption)
 				{

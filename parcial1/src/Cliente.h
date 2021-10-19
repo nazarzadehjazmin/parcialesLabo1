@@ -28,7 +28,7 @@ typedef struct
 	 char cuit[CUIT_LEN];
 	 char direccion[DIRECCION_LEN];
 	 char localidad[LOCALIDAD_LEN];
-	 int contadorPedido;
+	 //int contadorPedido;
 	 int isEmpty;
 } Cliente;
 
@@ -76,7 +76,7 @@ int uploadCliente(Cliente *list, int len, int *id);
  * \return int Return (-1) if Error [Invalid length or NULL pointer or without
 free space] - (0) if Ok
  */
-int addCliente(Cliente* list, int len, int id, char nombreEmpresa[], char cuit[], char direccion[], char localidad[], int contadorPedido);
+int addCliente(Cliente* list, int len, int id, char nombreEmpresa[], char cuit[], char direccion[], char localidad[]);
 
 /** \brief find an cliente by Id en returns the index position in array.
  *
