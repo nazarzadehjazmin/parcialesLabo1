@@ -82,14 +82,22 @@ int main(void) {
 						if(isClienteListEmpty(clienteList, QTY_CLIENTE) == 0 &&
 						   isPedidoListEmpty(pedidoList, QTY_PEDIDO) == 0)
 						{
-
+							informe_imprimirPedidosPendientes(pedidoList, QTY_PEDIDO, clienteList, QTY_CLIENTE);
+						}
+						else
+						{
+							printf(EMPTY_LIST);
 						}
 						break;
 					case 8:
 						if(isClienteListEmpty(clienteList, QTY_CLIENTE) == 0 &&
 						   isPedidoListEmpty(pedidoList, QTY_PEDIDO) == 0)
 						{
-
+							informe_imprimirPedidosProcesados(pedidoList, QTY_PEDIDO, clienteList, QTY_CLIENTE);
+						}
+						else
+						{
+							printf(EMPTY_LIST);
 						}
 						break;
 					case 9:
@@ -98,12 +106,20 @@ int main(void) {
 						{
 							informe_imprimirLocalidadPendiente(pedidoList, QTY_PEDIDO, clienteList, QTY_CLIENTE);
 						}
+						else
+						{
+							printf(EMPTY_LIST);
+						}
 						break;
 					case 10:
 						if(isClienteListEmpty(clienteList, QTY_CLIENTE) == 0 &&
 						   isPedidoListEmpty(pedidoList, QTY_PEDIDO) == 0)
 						{
 							informe_imprimirPromedioPPCliente(pedidoList, QTY_PEDIDO, clienteList, QTY_CLIENTE);
+						}
+						else
+						{
+							printf(EMPTY_LIST);
 						}
 						break;
 				}

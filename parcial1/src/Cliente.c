@@ -122,7 +122,6 @@ int printCliente(Cliente* cliente)
 
 	if(cliente != NULL && cliente->isEmpty == FALSE)
 	{
-		//printf("\n%4d %20s %15s %20s %15s %10d",cliente->id, cliente->nombreEmpresa, cliente->cuit, cliente->direccion, cliente->localidad, cliente->contadorPedido);
 		printf("\n%4d %20s %15s %20s %15s",cliente->id, cliente->nombreEmpresa, cliente->cuit, cliente->direccion, cliente->localidad);
 		output = 0;
 	}
