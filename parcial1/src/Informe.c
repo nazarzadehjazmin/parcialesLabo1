@@ -221,6 +221,7 @@ int informe_imprimirClientesConPendientes(Pedido *pedidoList, int pedidoLen, Cli
 
 	if(pedidoList != NULL && pedidoLen > 0 && clienteList != NULL && clienteLen > 0)
 	{
+		printf("\n%4s %20s %10s %25s %15s %6s", "ID", "NOMBRE EMPRESA", "CUIT", "DIRECCION", "LOCALIDAD", "PENDIENTES");
 		for(int i = 0; i < clienteLen; i++)
 		{
 			if(clienteList[i].isEmpty == FALSE)
@@ -235,7 +236,7 @@ int informe_imprimirClientesConPendientes(Pedido *pedidoList, int pedidoLen, Cli
 
 				if(contadorPendientes > 0)
 				{
-					printf("\n%4s %20s %10s %25s %15s %6s", "ID", "NOMBRE EMPRESA", "CUIT", "DIRECCION", "LOCALIDAD", "PENDIENTES");
+
 					printf("\n%4d %20s %15s %20s %15s %6d", clienteList[i].id, clienteList[i].nombreEmpresa, clienteList[i].cuit, clienteList[i].direccion, clienteList[i].localidad, contadorPendientes);
 					contadorPendientes = 0;
 				}
