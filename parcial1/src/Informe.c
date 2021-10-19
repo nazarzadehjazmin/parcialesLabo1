@@ -314,7 +314,7 @@ Se imprimirá una lista de los pedidos que se encuentren en estado “Pendiente” co
 Cuit del cliente, dirección del cliente, cantidad de kilos a recolectar.
 */
 
-
+/*
 int informe_imprimirPedidosPendientes(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen)
 {
 	int output = -1;
@@ -347,9 +347,58 @@ int informe_imprimirPedidosPendientes(Pedido *pedidoList, int pedidoLen, Cliente
 	}
 	return output;
 }
+*/
 
+/*
+ //ESTE 8 NO ANDA
 
 int informe_imprimirPedidosProcesados(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen)
+{
+	int output = -1;
+	int flagPrimerProcesado=0;
+
+	if(pedidoList != NULL && pedidoLen > 0 && clienteList != NULL && clienteLen > 0)
+	{
+		for(int i = 0; i < pedidoLen; i++)
+		{
+			if(clienteList[i].isEmpty==FALSE)
+			{
+				for(int j = -1; j < clienteLen; j++)
+				{
+					if(clienteList[i].id==pedidoList[j].idCliente && strncasecmp(pedidoList[j].estadoPedido, COMPLETADO, ESTADO_LEN) == 0)
+					{
+						if(flagPrimerProcesado==0)
+						{
+							printf("\n%10s %25s %15s %15s %15s", "CUIT", "DIRECCION", "HDPE", "LDPE", "PP");
+							printf("\n%15s %20s %15.2f %15.2f %15.2f",  clienteList[i].cuit, clienteList[i].direccion, pedidoList[j].kgHDPE, pedidoList[j].kgLDPE, pedidoList[j].kgPP);
+							flagPrimerProcesado=1;
+						}
+						else
+						{
+							printf("\n%15s %20s %15.2f %15.2f %15.2f",  clienteList[i].cuit, clienteList[i].direccion, pedidoList[j].kgHDPE, pedidoList[j].kgLDPE, pedidoList[j].kgPP);
+						}
+					}
+				}
+			}
+		}
+		if(flagPrimerProcesado==0)
+		{
+			printf("\nNo hay pedidos procesados para mostrar");
+			output =-1;
+		}
+		else
+		{
+			output = 0;
+		}
+	}
+	return output;
+}
+*/
+
+/*
+ //ESTE 8 ANDA
+
+ int informe_imprimirPedidosProcesados(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen)
 {
 	int output = -1;
 	int contadorPendientes = 0;
@@ -395,6 +444,8 @@ int informe_imprimirPedidosProcesados(Pedido *pedidoList, int pedidoLen, Cliente
 	return output;
 
 }
+*/
+
 
 
 
@@ -452,3 +503,86 @@ int informe_imprimirPedidosProcesados(Pedido *pedidoList, int pedidoLen, Cliente
 
 }
 */
+
+
+
+int informe_imprimirPedidosPendientes(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen)
+{
+	int output =-1;
+	int flagPrimerPendiente=0;
+
+	if(pedidoList != NULL && pedidoLen > 0 && clienteList != NULL && clienteLen > 0)
+	{
+		printf("\n%10s %25s %15s", "CUIT", "DIRECCION", "TOTAL DE KG");
+		for(int i = 0; i < clienteLen; i++)
+		{
+			if(clienteList[i].isEmpty == 0)
+			{
+				for(int j = 0; j < pedidoLen; j++)
+				{
+					if((clienteList[i].id == pedidoList[j].idCliente) && (strncasecmp(pedidoList[j].estadoPedido, PENDIENTE, ESTADO_LEN) == 0))
+					{
+						flagPrimerPendiente=1;
+						printf("\n%15s %20s %15.2f",  clienteList[i].cuit, clienteList[i]. direccion, pedidoList[j].totalKg);
+					}
+				}
+
+			}
+		}
+		if(flagPrimerPendiente==1)
+		{
+		output = 0;
+		}
+		else
+		{
+			printf("\nNo hay pedidos pendientes para mostrar.");
+			output=-1;
+		}
+	}
+	return output;
+}
+
+
+
+int informe_imprimirPedidosProcesados(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen)
+{
+	int output = -1;
+	int flagPrimerProcesado=0;
+
+	if(pedidoList != NULL && pedidoLen > 0 && clienteList != NULL && clienteLen > 0)
+	{
+		for(int i = 0; i < clienteLen; i++)
+		{
+			if(clienteList[i].isEmpty==FALSE)
+			{
+				for(int j = -1; j < pedidoLen; j++)
+				{
+					if((clienteList[i].id==pedidoList[j].idCliente) && (strncasecmp(pedidoList[j].estadoPedido, COMPLETADO, ESTADO_LEN) == 0))
+					{
+						if((flagPrimerProcesado==0))
+						{
+							printf("\n%10s %25s %15s %15s %15s", "CUIT", "DIRECCION", "HDPE", "LDPE", "PP");
+							printf("\n%15s %20s %15.2f %15.2f %15.2f",  clienteList[i].cuit, clienteList[i].direccion, pedidoList[j].kgHDPE, pedidoList[j].kgLDPE, pedidoList[j].kgPP);
+							flagPrimerProcesado=1;
+						}
+						else
+						{
+							printf("\n%15s %20s %15.2f %15.2f %15.2f",  clienteList[i].cuit, clienteList[i].direccion, pedidoList[j].kgHDPE, pedidoList[j].kgLDPE, pedidoList[j].kgPP);
+						}
+					}
+				}
+			}
+		}
+		if(flagPrimerProcesado==0)
+		{
+			printf("\nNo hay pedidos procesados para mostrar.");
+			output =-1;
+		}
+		else
+		{
+			output = 0;
+		}
+	}
+	return output;
+}
+

@@ -128,6 +128,8 @@ int printPedidosRecoleccion(Pedido* pedidoList, int pedidoLen);
 int hardcodearData_PedidoRecoleccion(Pedido* list, int len);
 
 
+int hardcodear_PedidoProcesado(Pedido* list, int len);
+
 /** \brief creates a menu for "alta"
  *
  * \param list Pedido*

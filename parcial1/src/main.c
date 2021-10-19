@@ -60,6 +60,7 @@ int main(void) {
 						if(isClienteListEmpty(clienteList, QTY_CLIENTE) == 0 &&
 						   isPedidoListEmpty(pedidoList, QTY_PEDIDO) == 0)
 						{
+							//hardcodearData_PedidoRecoleccion(pedidoList, QTY_PEDIDO);//borrar si no quiere hardcodear
 							procesarResiduos(pedidoList, QTY_PEDIDO);
 						}
 						else

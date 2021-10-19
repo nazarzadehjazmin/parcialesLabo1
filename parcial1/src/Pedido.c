@@ -463,6 +463,25 @@ int hardcodearData_PedidoRecoleccion(Pedido* list, int len)
 	return output;
 }
 
+int hardcodear_PedidoProcesado(Pedido* list, int len)
+{
+	int output = -1;
+
+	if(list != NULL && len > 0)
+	{
+		addPedidoRecoleccion(list, len, 7, 100, 100, 200, 400, COMPLETADO, 1);
+		addPedidoRecoleccion(list, len, 8, 0, 0, 300, 300, COMPLETADO, 2);
+		addPedidoRecoleccion(list, len, 9, 100, 100, 100, 300, COMPLETADO, 3);
+		addPedidoRecoleccion(list, len, 10, 100, 200, 100, 400, COMPLETADO, 4);
+		addPedidoRecoleccion(list, len, 11, 200, 300, 0, 500, COMPLETADO, 5);
+		addPedidoRecoleccion(list, len, 12, 150, 100, 100, 350, COMPLETADO, 6);
+		printPedidosRecoleccion(list, len);
+		output = 0;
+	}
+
+	return output;
+}
+
 /*
 int alta_menu_Pedido(Pedido* pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen)
 {
