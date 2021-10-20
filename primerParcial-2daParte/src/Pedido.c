@@ -123,11 +123,12 @@ int procesarResiduos(Pedido* pedidoList, int pedidoLen)
 		{
 			index = findPedidoById(pedidoList, pedidoLen, idIngresado);
 
-			if(index != -1 && pedidoList[index].isEmpty == FALSE_P)
+			if(index != -1
+			   && strncasecmp(pedidoList[index].estadoPedido, PENDIENTE, ESTADO_LEN) == 0)
 			{
-				if(utn_getFloat(&buffer.kgHDPE, "\nCantidad de HDPE(Kg): ", ERROR_MSG_P, MIN_KG, MAX_KG, QTY_REINTENTOS_P) == 0 &&
-					utn_getFloat(&buffer.kgLDPE, "\nCantidad de LDPE(Kg): ", ERROR_MSG_P, MIN_KG, MAX_KG, QTY_REINTENTOS_P) == 0 &&
-				   utn_getFloat(&buffer.kgPP, "\nCantidad de PP(Kg): ", ERROR_MSG_P, MIN_KG, MAX_KG, QTY_REINTENTOS_P) == 0)
+				if(utn_getFloat(&buffer.kgHDPE, "\nCantidad de HDPE(Kg): ", ERROR_MSG_P, 0, MAX_KG, QTY_REINTENTOS_P) == 0 &&
+					utn_getFloat(&buffer.kgLDPE, "\nCantidad de LDPE(Kg): ", ERROR_MSG_P, 0, MAX_KG, QTY_REINTENTOS_P) == 0 &&
+				   utn_getFloat(&buffer.kgPP, "\nCantidad de PP(Kg): ", ERROR_MSG_P, 0, MAX_KG, QTY_REINTENTOS_P) == 0)
 				{
 					sumaKgTotal = buffer.kgHDPE + buffer.kgLDPE + buffer.kgPP;
 

@@ -6,6 +6,7 @@ int informe_imprimirLocalidadPendiente(Pedido *pedidoList, int pedidoLen, Client
 	int output = -1;
 	int contadorPendientes = 0;
 	int localidad;
+	//pendientes por cada localidad con eAux--> auxiliar porque sino se pisa -->vectores de estruct paralelas
 
 	if(pedidoList != NULL && pedidoLen > 0 && clienteList != NULL && clienteLen > 0)
 	{
@@ -206,6 +207,8 @@ int informe_imprimirPedidosProcesados(Pedido *pedidoList, int pedidoLen, Cliente
 
 int informe_imprimirMaximo(Pedido *pedidoList, int pedidoLen, Cliente* clienteList, int clienteLen)
 {
+	//auxiliar para contar!!!!
+	//igual fx q la prox --> una sola y pasarle el estado
 	int output = -1;
 	int contadorPendientes = 0;
 	int flag = 0;

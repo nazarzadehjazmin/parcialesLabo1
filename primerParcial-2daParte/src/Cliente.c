@@ -97,7 +97,7 @@ int findClienteById(Cliente* list, int len, int id)
 	if(list != NULL && len > 0 && id > 0)
 	{
 		for(int i = 0; i < len; i++)
-		{
+		{//repeti en modificar
 			if(list[i].isEmpty == FALSE && list[i].id == id)
 			{
 				output = i;
@@ -169,16 +169,17 @@ int alta_menu(Cliente* list, int len, Localidad* localidadList, int localidadLen
 	{
 		do
 		{
-			if(utn_getNumero(&option, "\n1-Hardcodear clientes \n2-Cargar cliente \n3-Volver al menu principal", ERROR_MSG, 1, 3, QTY_REINTENTO) == 0)
+			if(utn_getNumero(&option, "\n1-Hardcodear clientes \n2-Cargar cliente \n3-Cargar localidades \n4-Volver al menu principal", ERROR_MSG, 1, 4, QTY_REINTENTO) == 0)
 			{
 				switch(option)
 				{
+
 					case 1:
 						contadorHardcodeo++;
 
 						if(contadorHardcodeo == 1)
 						{
-							if(hardcodearData(list, len) == 0)
+							if(hardcodearData(list, len) == 0 && hardcodearData_localidad(localidadList, localidadLen) == 0)
 							{
 								printClientes(list, len);
 							}
@@ -190,13 +191,31 @@ int alta_menu(Cliente* list, int len, Localidad* localidadList, int localidadLen
 
 						break;
 					case 2:
-						if(//hardcodearData_localidad(localidadList, localidadLen) == 0 &&
-							//printLocalidades(localidadList, localidadLen) == 0 &&
-						   uploadCliente(list, len, &id) == 0 &&
+
+						if(//cambiar el verdadero a otro valor y 0 a falso
+							printLocalidades(localidadList, localidadLen) == 0 &&
+							uploadCliente(list, len, &id) == 0 &&
 						   printClientes(list, len) == 0
 						   )
 						{
 							printf("\nCliente cargado exitosamente");
+
+						}
+						else
+						{
+							printf("\nNo se ha podido cargar el cliente");
+						}
+						break;
+					case 3:
+						if(//hardcodearData_localidad(localidadList, localidadLen) == 0 &&
+							uploadLocalidad(localidadList, localidadLen, &id) == 0 &&
+						   printLocalidades(localidadList, localidadLen) == 0
+						   )
+						{
+							//falta verificar si la localidad ya existe}
+							//for lista localidades e if para comparar lo que ingreso
+							printf("\nCliente cargado exitosamente");
+
 						}
 						else
 						{
@@ -205,7 +224,7 @@ int alta_menu(Cliente* list, int len, Localidad* localidadList, int localidadLen
 						break;
 				}
 			}
-		}while(option!= 3);
+		}while(option!= 4);
 		output = 0;
 	}
 
@@ -248,7 +267,7 @@ int ModificarCliente(Cliente* list, int len, Localidad* localidadList, int local
 		{
 			index = findClienteById(list, len, idIngresado);
 
-			if(index != -1 && list[index].isEmpty == FALSE)
+			if(index != -1 && list[index].isEmpty == FALSE) //dentro del findclientebyid -->repetido
 			{
 				do
 				{

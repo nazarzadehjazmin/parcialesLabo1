@@ -13,7 +13,8 @@ int main(void) {
 	int id = 0;
 
 	if(initCliente(clienteList, QTY_CLIENTE) == 0 &&
-	   initPedido(pedidoList, QTY_PEDIDO) == 0)
+	   initPedido(pedidoList, QTY_PEDIDO) == 0 &&
+	   initLocalidad(localidadList, QTY_LOCALIDAD) == 0)
 	{
 		do
 		{
@@ -28,6 +29,7 @@ int main(void) {
 						if(isClienteListEmpty(clienteList, QTY_CLIENTE) == 0 &&
 						   ModificarCliente(clienteList, QTY_CLIENTE, localidadList, QTY_LOCALIDAD) == 0)
 						{
+
 							printClientes(clienteList, QTY_CLIENTE);
 						}
 						else
