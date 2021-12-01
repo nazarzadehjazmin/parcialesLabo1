@@ -102,3 +102,18 @@ int publisher_getNombre(ePublisher* this, char* nombre)
 }
 
 
+void publisher_deleteAll(LinkedList* publisherList)
+{
+    ePublisher* this;
+    int len;
+
+    if (publisherList != NULL)
+    {
+		len = ll_len(publisherList);
+		for (int i = 0; i < len; i++)
+		{
+			this = (ePublisher*) ll_get(publisherList, i);
+			publisher_delete(this);
+		}
+    }
+}

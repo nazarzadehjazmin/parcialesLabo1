@@ -55,7 +55,7 @@ int controller_sortBookByAutor(LinkedList* bookList, LinkedList* publisherList)
 {
 	int output = -1;
 
-	if(bookList != NULL && ll_isEmpty(bookList) == 0)
+	if(bookList != NULL && publisherList != NULL && ll_isEmpty(bookList) == 0 && ll_isEmpty(publisherList) == 0)
 	{
 		printf(SORT_MSG);
 		if(ll_sort(bookList, book_compareByAuthor, 1) == 0) // 1 = asc
@@ -80,12 +80,13 @@ int controller_listBooks(LinkedList* bookList, LinkedList* publisherList)
 	int output = -1;
 	eBook* pBook;
 	int len;
-	len = ll_len(bookList);
+
 	if(bookList != NULL &&
 	   publisherList != NULL &&
 	   ll_isEmpty(bookList) == 0 &&
 	   ll_isEmpty(publisherList) == 0)
 	{
+		len = ll_len(bookList);
 		printf("id - titulo - autor - precio - editorial\n");
 		for(int i = 0; i < len; i++)
 		{
@@ -128,17 +129,20 @@ int controller_saveMinotauroAsText(LinkedList* bookList, char* path)
 					pBook = (eBook*) ll_get(minotauroList, i);
 					if(book_getAllTheGets(pBook, &id, titulo, autor, &precio, &idEditorial) == 0)
 					{
-						fprintf(pFile,"%d,%s,%s,%.2f\n", id, titulo, autor, precio);
+						fprintf(pFile,"%d,%s,%s,%.2f\n", id, titulo, autor, precio); //serializar --> cada variable la transformo en texto
 					}
 				}
 				printf(SAVE_DATA);
 				output = 0;
+				fclose(pFile);
 			}
 		}
 	}
-	fclose(pFile);
+
     return output;
 }
+
+
 
 int controller_exit(LinkedList* bookList, LinkedList* publisherList, char* continuar)
 {
@@ -151,9 +155,10 @@ int controller_exit(LinkedList* bookList, LinkedList* publisherList, char* conti
 		if(ll_isEmpty(bookList) == 0 &&
 		   ll_isEmpty(publisherList) == 0)
 		{
-			controller_deleteCleanList(bookList);
-			controller_deleteCleanList(publisherList);
-			//printf("\nHasta la próxima!\n");
+			ll_deleteLinkedList(bookList);
+			ll_deleteLinkedList(publisherList);
+			book_deleteAll(bookList);
+			publisher_deleteAll(publisherList);
 		}
 		output = 0;
 	}
@@ -161,15 +166,41 @@ int controller_exit(LinkedList* bookList, LinkedList* publisherList, char* conti
 	return output;
 }
 
-int controller_deleteCleanList(LinkedList* list)
+
+int controller_saveDiscountAsText(LinkedList* bookList, char* path)
 {
 	int output = -1;
+	FILE* pFile;
+	eBook* pBook;
+	int len;
+	int id;
+	char titulo[TITLE_LEN];
+	char autor[AUTHOR_LEN];
+	float precio;
+	int idEditorial;
 
-	if(list != NULL)
+	if(bookList != NULL && path != NULL && ll_isEmpty(bookList) == 0)
 	{
-		ll_clear(list);
-		ll_deleteLinkedList(list);
-		output = 0;
+		if(ll_map(bookList, book_applyDiscount) == 0)
+		{
+			len = ll_len(bookList);
+			pFile = fopen(path, "w");
+			if(pFile != NULL)
+			{
+				fprintf(pFile,"id,titulo,autor,precio,idEditorial\n");
+				for(int i = 0; i < len; i++)
+				{
+					pBook = (eBook*)ll_get(bookList, i);
+					if(book_getAllTheGets(pBook, &id, titulo, autor, &precio, &idEditorial) == 0)
+					{
+						fprintf(pFile, "%d,%s,%s,%.2f,%d\n", id, titulo, autor, precio, idEditorial);
+					}
+				}
+				printf(SAVE_DATA);
+				output = 0;
+				fclose(pFile);
+			}
+		}
 	}
 
 	return output;

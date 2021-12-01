@@ -1,5 +1,7 @@
 #include "Parser.h"
 
+//lee el texto, lo interpreta/asigna a variables
+
 int parser_BookFromText(FILE* pFile , LinkedList* pArrayList)
 {
 	int output = -1;

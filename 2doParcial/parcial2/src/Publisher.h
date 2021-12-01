@@ -86,4 +86,6 @@ int publisher_getNombre(ePublisher* this, char* nombre);
 int publisher_setNombre(ePublisher* this, char* nombre);
 
 
+void publisher_deleteAll(LinkedList* publisherList);
+
 #endif

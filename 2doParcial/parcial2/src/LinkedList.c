@@ -586,6 +586,7 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 }
 
 
+
 /** \brief Permite filtrar los elementos de la lista y generar una nueva con todos los elementos que cumplen una determinada condicion
  * \param pList LinkedList* Puntero a la lista
  * \param pFunc (*pFunc) Puntero a la funcion criterio
@@ -596,26 +597,79 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 
 LinkedList* ll_filter(LinkedList* this, int (*pFunc)(void*))
 {
-	LinkedList* newLinkedList = NULL;
+	LinkedList* newLinkedList = NULL; //para devolver la lista filtrada
 	void* pElement;
 	int len;
 
-	if (this != NULL && pFunc != NULL)
+	if(this != NULL && pFunc != NULL)
 	{
-		newLinkedList = ll_newLinkedList();
-		if (newLinkedList != NULL)
+		newLinkedList = ll_newLinkedList(); //creo una nueva lista
+		if(newLinkedList != NULL) //reserve memoria
 		{
 			len = ll_len(this);
-			for (int i = 0; i < len; i++)
+			for(int i = 0; i < len; i++)
 			{
-				pElement = ll_get(this, i);
-				if (pFunc(pElement))
+				pElement = ll_get(this, i); //recorro la lista original
+				if(pFunc(pElement)) //llama a pFunc --> le pasa un elemento --> pFunc = 1 --> lo carga
 				{
 					ll_add(newLinkedList, pElement);
 				}
 			}
 		}
 	}
-	return newLinkedList;
+	return newLinkedList; //devuelve una lista --> igual o +chica
+}
+
+
+//Map es una función que te permite transformar los elementos de una lista y que devuelve una nueva lista con los elementos transformados.
+
+
+LinkedList* ll_map1(LinkedList* this, int (*pFunc)(void*))
+{
+	LinkedList* cloneList = NULL;
+	void* pElement;
+	int len;
+
+	if(this != NULL && pFunc != NULL)
+	{
+		cloneList = ll_clone(this); //clona la lista
+		if (cloneList != NULL)
+		{
+			len = ll_len(cloneList); //cant de elem del clon
+			for (int i = 0; i < len; i++)
+			{
+				pElement = ll_get(cloneList, i);//recorre la lista clonada
+				pFunc(pElement); //funcion con el criterio para transformar los elementos
+				//if(pElement != NULL)
+				//{
+					//ll_set(cloneList, i, pElement); //modifica los elementos en la lista clonada
+				//}
+			}
+		}
+	}
+	return cloneList;
+}
+
+//Map es una función que te permite transformar los elementos de una lista
+
+int ll_map(LinkedList* this, int (*pFunc)(void*))
+{
+	//no le hago el ll_clone a ll_map porque el clon y la lista sin clonar apuntan a los mismos elementos
+	int output = -1;
+	void* pElement;
+	int len;
+
+	if(this != NULL && pFunc != NULL)
+	{
+		output = 0;
+		len = ll_len(this);
+		for (int i = 0; i < len; i++)
+		{
+			pElement = ll_get(this, i);
+			pFunc(pElement); //funcion con el criterio para transformar los elementos
+			//ya hice el descuento en esta funcion
+		}
+	}
+	return output;
 }
 

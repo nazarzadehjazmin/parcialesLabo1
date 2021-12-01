@@ -1,7 +1,5 @@
 #include "Book.h"
 
-//ARREGLAR --> COMENTAR LOS NO TXT
-
 eBook* book_new(void)
 {
 	return (eBook*)malloc(sizeof(eBook));
@@ -163,7 +161,7 @@ int book_getTitulo(eBook* this, char* titulo)
 }
 
 
-//cambiada evaluar si fx bien
+
 int isValidString(char* string, int len)
 {
 	int output = 0;
@@ -334,33 +332,6 @@ char* book_getIdEditorialTxt(eBook* this, int* flagError)
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/*
-int employee_findId(LinkedList* pArrayListEmployee, int* id)
-{
-	int output = -1;
-	int len;
-	Employee* bufferEmployee;
-	int bufferId;
-
-	if(pArrayListEmployee != NULL && id != NULL)
-	{
-		len = ll_len(pArrayListEmployee);
-
-		for(int i = 0; i < len; i++)
-		{
-			bufferEmployee = (Employee*) ll_get(pArrayListEmployee, i); //unboxing
-			employee_getId(bufferEmployee, &bufferId);
-			if(bufferEmployee != NULL && bufferId == *id)
-			{
-				output = i;
-				break;
-			}
-		}
-	}
-	return output;
-}
-*/
-
 
 int book_getAllTheGets(eBook* pBook, int* id, char* titulo, char* autor, float* precio, int* idEditorial)
 {
@@ -464,3 +435,61 @@ int book_searchMinotauro(void* book)
 	return output;
 }
 
+
+void book_deleteAll(LinkedList* bookList)
+{
+    eBook* this;
+    int len;
+
+    if (bookList != NULL)
+    {
+		len = ll_len(bookList);
+		for (int i = 0; i < len; i++)
+		{
+			this = (eBook*) ll_get(bookList, i);
+			book_delete(this);
+		}
+    }
+}
+
+
+int book_applyDiscount(void* book)
+{
+	int output = -1;
+	eBook* pBook = (eBook*) book;
+	int id;
+	float precio;
+
+	if(book != NULL)
+	{
+		pBook = (eBook*)book;
+		book_getIdEditorial(pBook, &id);
+		book_getPrecio(pBook, &precio);
+
+		if(id == 1 && precio >= 300) //planeta
+		{
+			precio = book_calculateDiscount(precio, 20);
+			book_setPrecio(pBook, precio);
+		}
+		else if (id == 2 && precio <= 200) //siglo XXI
+		{
+			precio = book_calculateDiscount(precio, 10);
+			book_setPrecio(pBook, precio);
+		}
+
+		output = 0;
+	}
+	return output;
+}
+
+float book_calculateDiscount(float price, int discount)
+{
+	float priceWithDiscount;
+
+	if(price > 0 && discount > 0)
+	{
+		priceWithDiscount = price - price * discount / 100;
+	}
+
+	return priceWithDiscount;
+}

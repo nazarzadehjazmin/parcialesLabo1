@@ -21,7 +21,7 @@ int main()
 
 
     do{
-    	if(utn_getNumero(&option, "\nMenu: \n1.Cargar los datos de los libros \n2.Cargar los datos de las editoriales \n3.Ordenar autor de forma ascendente \n4.Imprimir lista de libros \n5.Listado de los libros de la editorial MINOTAURO \n6. Salir\n", "Error, reingrese el dato\n", 1, 6, 5) == 0)
+    	if(utn_getNumero(&option, "\nMenu: \n1.Cargar los datos de los libros \n2.Cargar los datos de las editoriales \n3.Ordenar autor de forma ascendente \n4.Imprimir lista de libros \n5.Listado de los libros de la editorial MINOTAURO \n6.Aplicar descuentos \n7.Salir\n", "Error, reingrese el dato\n", 1, 7, 5) == 0)
     	{
             switch(option)
             {
@@ -81,11 +81,22 @@ int main()
 					}
                 	break;
                 case 6:
+                	if(ll_isEmpty(bookList) == 0 &&
+					   ll_isEmpty(publisherList) == 0)
+					{
+                		controller_saveDiscountAsText(bookList, "mapeado.csv");
+					}
+                	else
+					{
+						printf(EMPTY_LIST_ERROR);
+					}
+                	break;
+                case 7:
                 	controller_exit(bookList, publisherList, &continuar);
                 	break;
             }
     	}
-    }while((continuar == 'n' || continuar == 'N') || option != 6);
+    }while((continuar == 'n' || continuar == 'N') || option != 7);
 
     return 0;
 }

@@ -74,13 +74,7 @@ int controller_saveMinotauroAsText(LinkedList* bookList, char* path);
 int controller_exit(LinkedList* bookList, LinkedList* publisherList, char* continuar);
 
 
-/** \brief Borra la lista de memoria y la libera
- *
- * \param pArrayList LinkedList*
- * \param int (*pFunc)(FILE*, LinkedList*)
- * \return int [<0] ERROR, [0] EXITO
- *
- */
-int controller_deleteCleanList(LinkedList* list);
+int controller_saveDiscountAsText(LinkedList* bookList, char* path);
+
 
 #endif

@@ -308,5 +308,10 @@ int book_compareByAuthor(void* firstAuthor, void* secondAuthor);
  */
 int book_searchMinotauro(void* book);
 
+void book_deleteAll(LinkedList* bookList);
+
+int book_applyDiscount(void* book);
+
+float book_calculateDiscount(float price, int discount);
 
 #endif
